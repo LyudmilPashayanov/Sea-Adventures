@@ -109,7 +109,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":35.529998779296878,"y":40.08000183105469,"z":27.200000762939454}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":5.599999904632568,"y":40.08000183105469,"z":27.200000762939454}}'
     m_Space: 0
   m_Property:
     name: bounds
@@ -140,7 +140,7 @@ MonoBehaviour:
     x: 481
     y: -190
     width: 603
-    height: 1570
+    height: 1569
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -581,7 +581,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: waterSmoke 1
+  m_Name: waterSmoke
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
@@ -1039,7 +1039,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 14
           m_Value: {x: -1, y: -1, z: -1}
         - m_ExpressionIndex: 15
-          m_Value: {x: 35.53, y: 40.08, z: 27.2}
+          m_Value: {x: 5.6, y: 40.08, z: 27.2}
         - m_ExpressionIndex: 16
           m_Value: {x: 0, y: 0, z: 0}
       m_Vector4f:
