@@ -8,7 +8,22 @@ https://www.quora.com/Why-do-mobile-games-have-2-types-currency#:~:text=They%20d
 
 https://www.quora.com/Game-Design-What-is-the-advantage-or-benefit-of-having-multiple-in-game-currencies
 
-show that my think will be finished in 9 weeks->planning
-and  that it is complex enough.
+https://confluence.gamehouse.com/display/GHOS/Diamond+economy+and+retention+ideas
+
+https://techcrunch.com/2015/08/05/how-to-build-a-smart-game-economy/?guccounter=
+
+https://www.feedough.com/how-to-choose-the-right-business-model-for-your-game/#:~:text=The%20six%20types%20of%20game,gotta%20pay%20for%20the%20oars.
+
 
 if the game is *this* at the end I will be really happy and if If I have time I can spend time implementing this and this...
+
+
+-For the presentation explain everything how it started.
+-Show images and diagrams of what you are talking about.
+-Explain how you got into those conclusions.
+-Make a road map with PICTURES of what the user will see when he start the game->
+He sees the start menu -> then he clicks play -> he choses upgrades -> the level start -> he spends coins -> etc...
+-Say that the game will be simple and will not focus on technical design, but more on designing the economy and how the game could monetize.
+-Explain why it is good to upgrade, customize, watch an Ad, etc..
+-Explain about the big companies (like Supercell, Fortnite), what are their games achieving, about the season pass, customization of items, emotions, etc...
+
