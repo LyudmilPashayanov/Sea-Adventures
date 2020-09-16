@@ -26,4 +26,5 @@ He sees the start menu -> then he clicks play -> he choses upgrades -> the level
 -Say that the game will be simple and will not focus on technical design, but more on designing the economy and how the game could monetize.
 -Explain why it is good to upgrade, customize, watch an Ad, etc..
 -Explain about the big companies (like Supercell, Fortnite), what are their games achieving, about the season pass, customization of items, emotions, etc...
+-Explain how I am focusing on player behaviour whithing the game
 
