@@ -4,18 +4,7 @@ https://medium.com/@alejandrodiazjllo/s-o-l-i-d-principles-for-unity-a1556ee99e7
 
 http://howtomakeanrpg.com/a/how-to-make-an-rpg-stats.html 
 
-https://www.quora.com/Why-do-mobile-games-have-2-types-currency#:~:text=They%20do%20this%20because%20the,to%20continue%20developing%20the%20game.&text=It's%20quite%20simple%2C%20you%20need,currency%20it%20would%20be%20inaccessible.
 
-https://www.quora.com/Game-Design-What-is-the-advantage-or-benefit-of-having-multiple-in-game-currencies
-
-https://confluence.gamehouse.com/display/GHOS/Diamond+economy+and+retention+ideas
-
-https://techcrunch.com/2015/08/05/how-to-build-a-smart-game-economy/?guccounter=
-
-https://www.feedough.com/how-to-choose-the-right-business-model-for-your-game/#:~:text=The%20six%20types%20of%20game,gotta%20pay%20for%20the%20oars.
-
-
-if the game is *this* at the end I will be really happy and if If I have time I can spend time implementing this and this...
 
 
 -For the presentation explain everything how it started.
