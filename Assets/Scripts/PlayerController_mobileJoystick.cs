@@ -12,27 +12,32 @@ public class PlayerController_mobileJoystick : MonoBehaviour
     public Vector3 m_MovementDirection;
     public Vector2 m_circlePos;
     public bool m_StartMovement;
+    public bool m_ContinuedMovement;
     public Transform m_ship;
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < Screen.width/2 && Input.mousePosition.y < Screen.height/2)
         {
+            Debug.Log("mouse: " + Input.mousePosition.x + "  screen.w" + Screen.width);
             m_InitialPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
             m_Circle.transform.position = Input.mousePosition;
             m_OuterCircle.transform.position = Input.mousePosition;
             m_circlePos = Input.mousePosition;
             m_Circle.gameObject.SetActive(true);
             m_OuterCircle.gameObject.SetActive(true);
+            m_StartMovement = true;
         }
         if (Input.GetMouseButton(0))
         {
-            m_StartMovement = true;
+            if (m_StartMovement)
+                m_ContinuedMovement = true;
             m_MovementDirection = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
             Debug.Log("m_MovementDirection: " + m_MovementDirection);
         }
         else
         {
+            m_ContinuedMovement = false;
             m_StartMovement = false;
         }
     }

@@ -8,6 +8,12 @@ public class MenuController : MonoBehaviour
     public UpgradesController m_UpgradesController;
     public ShopController m_ShopController;
     
+    public void StartLevelUI()
+    {
+        SetOffMainMenus();
+        SetInGameUI(true);
+    }
+
     public void SetActiveMainMenus()
     {
         m_view.SetActiveMainMenus(true);
@@ -66,6 +72,11 @@ public class MenuController : MonoBehaviour
             m_ShopController.SetShopOff();
             m_view.SetActiveMenu(true);
         }
+    }
+
+    public void SetInGameUI(bool active)
+    {
+        m_view.SetInGameUI(active);
     }
 
     public void QuitGame()

@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
         playerController.enabled = false;
     }
 
-    public void StartGame()
+    public void StartLevel()
     {
         AdsManager.Instance.ShowRewardAd();
-        m_MenuController.SetOffMainMenus();
+        m_MenuController.StartLevelUI();
         playerController.enabled = true;
+
     }
 }
