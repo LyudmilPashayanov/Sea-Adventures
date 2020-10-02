@@ -16,14 +16,10 @@ public class RewardedAdsGoogle : MonoBehaviour
     }
 
     private void CreateAndLoadAd()
-    {    
-#if UNITY_ANDROID //ca-app-pub-3708989579228050/4090049015
-            m_AdUnit = "ca-app-pub-3940256099942544/5224354917";
-#elif UNITY_IPHONE
-            m_AdUnit = "ca-app-pub-6665445387809242/1536364218";
-#else
-            m_AdUnit = "unexpected_platform";
-#endif
+    {
+        // ca - app - pub - 3708989579228050 / 4090049015
+        
+        m_AdUnit = "ca - app - pub - 3940256099942544 / 5224354917";
 
         m_RewardedAd = new RewardedAd(m_AdUnit);
 
@@ -92,6 +88,7 @@ public class RewardedAdsGoogle : MonoBehaviour
     public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
     {
         Debug.Log("HandleRewardedAdFailedToLoad event received with message: " + args.Message);
+ 
     }
 
     public void HandleRewardedAdOpening(object sender, EventArgs args)
