@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController_mobileJoystick : MonoBehaviour
 {
-
+    static PlayerController_mobileJoystick instance = null;
+    public static PlayerController_mobileJoystick Instance { get { return instance; } }
     public float m_ForwardSpeed = 10f;
     public RectTransform m_Circle;
     public RectTransform m_OuterCircle;
@@ -14,6 +15,12 @@ public class PlayerController_mobileJoystick : MonoBehaviour
     public bool m_StartMovement;
     public bool m_ContinuedMovement;
     public Transform m_ship;
+
+    public void Awake()
+    {
+        instance = this;
+    }
+
     void Update()
     {
 
@@ -32,8 +39,11 @@ public class PlayerController_mobileJoystick : MonoBehaviour
         {
             if (m_StartMovement)
                 m_ContinuedMovement = true;
+#if UNITY_EDITOR
             m_MovementDirection = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-            Debug.Log("m_MovementDirection: " + m_MovementDirection);
+#else
+            m_MovementDirection = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, Camera.main.transform.position.z));
+#endif
         }
         else
         {
