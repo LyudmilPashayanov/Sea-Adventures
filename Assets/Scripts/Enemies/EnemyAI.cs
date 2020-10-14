@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     public Vector3 m_StartingPosition;
     public EnemyPathfinding m_PathfindingScript;
     public EnemyAttack m_EnemyAttack;
+
     private void Update()
     {
         switch (m_CurrentState)
@@ -29,7 +30,7 @@ public class EnemyAI : MonoBehaviour
                 ChasePlayer();
                 break;
             case State.AttackTarget:
-                m_EnemyAttack.AttackTarget(PlayerController_mobileJoystick.Instance.gameObject);
+                AttackPlayer();
 
                 break;
             case State.AttackIsland:
@@ -40,7 +41,7 @@ public class EnemyAI : MonoBehaviour
 
     public void FindTarget()
     {
-        if(Vector3.Distance(transform.position,PlayerController_mobileJoystick.Instance.transform.position) < m_EnemyAttack.m_RangeOfView)
+        if (m_EnemyAttack.CheckForPlayer())
         {
             m_CurrentState = State.ChasePlayer;
         }
@@ -50,12 +51,26 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 islandPos = IslandManager.Instance.transform.position;
         m_PathfindingScript.MoveTo(islandPos);
-        if (Vector3.Distance(transform.position, islandPos) < m_EnemyAttack.m_AttackRange) // in range of island
+        if (Vector3.Distance(transform.position, islandPos) < m_EnemyAttack.AttackRange) // in range of island
         {
             m_CurrentState = State.AttackIsland;
         }
     }
-
+    public void AttackPlayer()
+    {
+        Transform player = PlayerController_mobileJoystick.Instance.transform;
+        Debug.DrawLine(transform.position, PlayerController_mobileJoystick.Instance.transform.position, Color.green);
+        if (m_EnemyAttack.TargetInAttackRange(player))
+        {
+            m_PathfindingScript.StopMoving();
+            m_EnemyAttack.AttackTarget(PlayerController_mobileJoystick.Instance.gameObject);
+        }
+        else
+        {
+            m_CurrentState = State.ChasePlayer;
+        }
+        
+    }
     public void AttackIsland()
     {
         m_PathfindingScript.StopMoving();
@@ -64,17 +79,16 @@ public class EnemyAI : MonoBehaviour
 
     public void ChasePlayer()
     {
-        Vector3 playerPos = PlayerController_mobileJoystick.Instance.transform.position;
-        
-        if(Vector3.Distance(playerPos,transform.position) < m_EnemyAttack.m_AttackRange)
+        Transform player = PlayerController_mobileJoystick.Instance.transform;
+        if (m_EnemyAttack.TargetInAttackRange(player))
         {
             m_PathfindingScript.StopMoving();
-            m_EnemyAttack.AttackTarget(PlayerController_mobileJoystick.Instance.gameObject);
+            m_CurrentState = State.AttackTarget;
         }
         else
-        {   if(Vector3.Distance(playerPos, transform.position) < m_EnemyAttack.m_RangeOfView+3)
+        {   if(m_EnemyAttack.CheckForPlayer())
             {
-                m_PathfindingScript.MoveTo(playerPos);
+                m_PathfindingScript.MoveTo(player.position);
             }
             else
             {

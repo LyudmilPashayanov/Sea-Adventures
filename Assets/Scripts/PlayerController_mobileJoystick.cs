@@ -26,7 +26,6 @@ public class PlayerController_mobileJoystick : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < Screen.width/2 && Input.mousePosition.y < Screen.height/2)
         {
-            Debug.Log("mouse: " + Input.mousePosition.x + "  screen.w" + Screen.width);
             m_InitialPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
             m_Circle.transform.position = Input.mousePosition;
             m_OuterCircle.transform.position = Input.mousePosition;

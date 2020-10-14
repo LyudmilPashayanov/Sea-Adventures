@@ -1,19 +1,5 @@
 https://www.twitch.tv/jhoefnagel/videos
 
-https://medium.com/@alejandrodiazjllo/s-o-l-i-d-principles-for-unity-a1556ee99e7c
+I see that this is an matching app for depressed people, who are looking for a quick way to find comfort and get rid of their feeling of loneliness, by watching 5 seconds videos from people using this application.
 
-http://howtomakeanrpg.com/a/how-to-make-an-rpg-stats.html 
-
-
-
-
--For the presentation explain everything how it started.
--Show images and diagrams of what you are talking about.
--Explain how you got into those conclusions.
--Make a road map with PICTURES of what the user will see when he start the game->
-He sees the start menu -> then he clicks play -> he choses upgrades -> the level start -> he spends coins -> etc...
--Say that the game will be simple and will not focus on technical design, but more on designing the economy and how the game could monetize.
--Explain why it is good to upgrade, customize, watch an Ad, etc..
--Explain about the big companies (like Supercell, Fortnite), what are their games achieving, about the season pass, customization of items, emotions, etc...
--Explain how I am focusing on player behaviour whithing the game
-
+If this application target audiance is going to be depressed people only, I would think that when someone who is feeling down wouldn't be able to record a 5 second video, which will cheer someone else who is also depressed.

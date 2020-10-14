@@ -2,40 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public abstract class EnemyAttack : MonoBehaviour
 {
-    public float m_AttackRange = 20;
-    public float m_RangeOfView = 30;
-    public float m_AttackDamage = 10;
-    public float m_AttackSpeed = 1f; // bullets per second
+    private float attackRange;
+    private float rangeOfView;
+    private float attackDamage;
+    private float attackSpeed; // bullets per second
 
-    private float m_CurrentReload = 0;
-    private bool reloadReady=true;
-    private void Update()
-    {
-        if (!reloadReady)
-        {
-            m_CurrentReload += Time.deltaTime;
-            if(m_CurrentReload >= m_AttackSpeed)
-            {
-                reloadReady = true;
-                m_CurrentReload = 0;
-            }
-        }
-    }
 
-    public void AttackTarget(GameObject target)
-    {
-        transform.LookAt(target.transform);
-        Shoot(target);
-    }
+    public float AttackRange { get => attackRange; set => attackRange = value; }
+    public float RangeOfView { get => rangeOfView; set => rangeOfView = value; }
+    public float AttackDamage { get => attackDamage; set => attackDamage = value; }
+    public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+    
 
-    public void Shoot(GameObject target)
-    {
-        if (reloadReady)
-        {
-            Debug.Log("SHOOT AT TARGET: " + target.name);
-            reloadReady = false;
-        }
-    }
+    public abstract void SetStats(float atcRange, float atcDamage, float atcSpeed, float rangeOfView);
+
+    public abstract void AttackTarget(GameObject target);
+
+    public abstract void Shoot(GameObject target);
+
+    public abstract bool CheckForPlayer();
+
+    public abstract bool TargetInView(Transform target);
+
+    public abstract bool TargetInAttackRange(Transform target);
 }
