@@ -8,22 +8,27 @@ public class ShipHealth : MonoBehaviour
     private int m_maxHealth = 100;
     private int m_currentHealth;
 
-    public event Action OnDie = delegate { };
-
+    public event Action<int> TakeDamageEvent;
+    public event Action<GameObject> OnDie;
     private void Awake()
     {
         m_currentHealth = m_maxHealth;
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        var projectile = collision.collider.GetComponent<Projectile>();
+        var projectile = other.GetComponent<Projectile>();
         if (projectile != null)
+        {
             TakeDamage(projectile.m_Damage);
+            Destroy(projectile);
+        }
     }
 
     private void TakeDamage(int damage)
     {
+        TakeDamageEvent(damage);
         m_currentHealth -= damage;
         if(m_currentHealth <= 0)
         {
@@ -33,8 +38,7 @@ public class ShipHealth : MonoBehaviour
 
     private void Die()
     {
-        OnDie();
-       
-        // Destroy(gameObject);
+        OnDie(gameObject);
+        Destroy(gameObject);
     }
 }
