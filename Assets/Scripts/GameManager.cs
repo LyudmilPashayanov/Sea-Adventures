@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -16,11 +18,6 @@ public class GameManager : MonoBehaviour
         playerController.enabled = false;
     }
 
-    public void LoadLevel()
-    {
-        //m_CurrentLoadedLevel
-    }
-
     public void StartLevel()
     {
         AdsManager.Instance.ShowRewardAd();
@@ -31,9 +28,30 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-
-        string json = Resources.Load<TextAsset>("GameJSONData/level1").text;
-        oneLevel level = JsonUtility.FromJson<oneLevel>(json);
+        LevelManager level = new LevelManager();
+        string json = Resources.Load<TextAsset>("GameJSONData/level_1").text;
+        JObject levelJsonObject = JObject.Parse(json);
+        JArray waves = (JArray)levelJsonObject["waves"];
+        for (int i = 0; i < waves.Count; i++)
+        {
+            JArray typesInWave = (JArray)levelJsonObject["waves"][i]["types"];
+            Debug.Log("WAVE: " + i);
+            Wave newWave = new Wave();
+            for (int k = 0; k < typesInWave.Count; k++)
+            {
+                string type = (string)levelJsonObject["waves"][i]["types"][k]["type"];
+                int count = (int)levelJsonObject["waves"][i]["types"][k]["count"];
+                
+                for (int j = 0; j < count; j++)
+                {
+                    string path = string.Format(@"Prefabs\enemies\{0}", type);
+                    GameObject newEnemy = (GameObject)Resources.Load(path, typeof(GameObject));
+                    newWave.enemies.Add(newEnemy.GetComponent<EnemyAI>());
+                }
+            }
+            level.waves.Add(newWave);
+        }
+        m_CurrentLoadedLevel = level;
 
         //        oneType tempType = new oneType();
         //        tempType.type = "normal";
@@ -71,20 +89,22 @@ public class GameManager : MonoBehaviour
         //    }
     }
 }
-[Serializable]
-public class oneType
-{
-    public string type;
-    public int count;
-}
-[Serializable]
-public class oneWave
-{
-    public List<oneType> types = new List<oneType>();
-}
 
-[Serializable]
-public class oneLevel
-{
-    public List<oneWave> waves = new List<oneWave>();
-}
+//[Serializable]
+//public class oneType
+//{
+//    public string type;
+//    public int count;
+//}
+
+//[Serializable]
+//public class oneWave
+//{
+//    public List<oneType> types = new List<oneType>();
+//}
+
+//[Serializable]
+//public class oneLevel
+//{
+//    public List<oneWave> waves = new List<oneWave>();
+//}

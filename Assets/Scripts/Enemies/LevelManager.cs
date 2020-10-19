@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,11 @@ public enum StartingPoint
 {
     top, left, right, bottom
 }
-
+[Serializable]
 public class LevelManager : MonoBehaviour
 {
-    
-    public List<Wave> waves;
+
+    public List<Wave> waves = new List<Wave>();
 
    
     private List<EnemyAI> m_CurrentEnemies = new List<EnemyAI>();  // have a base class "enemyType"
@@ -21,16 +22,17 @@ public class LevelManager : MonoBehaviour
     {
         foreach (EnemyAI item in waves[m_CurrentWave].enemies)
         {
-            m_CurrentEnemies.Add(Instantiate(/* enemyType, */ item, GetRandomStartingPosition(), Quaternion.identity));
-            item.m_ShipHealth.OnDie += RemoveEnemyFromList;
+          EnemyAI newEnemy = Instantiate(/* enemyType, */ item, GetRandomStartingPosition(), Quaternion.identity);
+          m_CurrentEnemies.Add(newEnemy);
+          newEnemy.m_ShipHealth.OnDie += RemoveEnemyFromList;
         }
     }
 
     public void StartNextWave()
     {
-        if (m_CurrentWave == m_CurrentEnemies.Count)
+        if (m_CurrentWave+1 == waves.Count)
         {
-           
+            LevelPassed();
             return;
         }
         m_CurrentWave++;
@@ -40,7 +42,7 @@ public class LevelManager : MonoBehaviour
     public void RemoveEnemyFromList(GameObject enemy)
     {
         m_CurrentEnemies.Remove(enemy.GetComponent<EnemyAI>());
-
+        Debug.Log("enemy died !!! ");
         //check if it was the last active enemy
         if (m_CurrentEnemies.Count == 0)
         {
@@ -59,22 +61,22 @@ public class LevelManager : MonoBehaviour
     {
         Vector3 startingPos = new Vector3();
 
-        StartingPoint sp = (StartingPoint)Random.Range(0, 4);
+        StartingPoint sp = (StartingPoint)UnityEngine.Random.Range(0, 4);
         if (sp == StartingPoint.bottom)
         {
-            startingPos = new Vector3(Random.Range(-96, 28), 0, -28);
+            startingPos = new Vector3(UnityEngine.Random.Range(-96, 28), 0, -28);
         }
         else if (sp == StartingPoint.top)
         {
-            startingPos = new Vector3(Random.Range(-96, 28), 0, 96);
+            startingPos = new Vector3(UnityEngine.Random.Range(-96, 28), 0, 96);
         }
         else if (sp == StartingPoint.left)
         {
-            startingPos = new Vector3(-96, 0, Random.Range(-28, 96));
+            startingPos = new Vector3(-96, 0, UnityEngine.Random.Range(-28, 96));
         }
         else if (sp == StartingPoint.right)
         {
-            startingPos = new Vector3(28, 0, Random.Range(-28, 96));
+            startingPos = new Vector3(28, 0, UnityEngine.Random.Range(-28, 96));
         }
         return startingPos;
     }
