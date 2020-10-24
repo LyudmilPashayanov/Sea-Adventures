@@ -15,10 +15,13 @@ public class PlayerController_mobileJoystick : MonoBehaviour
     public bool m_StartMovement;
     public bool m_ContinuedMovement;
     public Transform m_ship;
+    public BaseHealth m_PlayersHealth;
 
     public void Awake()
     {
         instance = this;
+        m_PlayersHealth = GetComponent<BaseHealth>();
+        m_PlayersHealth.TakeDamageEvent += UIController.Instance.m_InGameUIController.m_PlayersHealthBarController.ReduceHealth;
     }
 
     void Update()

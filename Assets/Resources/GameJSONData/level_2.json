@@ -1,11 +1,11 @@
 {
-  "id": 1,
+  "id": 2,
   "waves": [
     {
       "types": [
         {
           "type": "normal",
-          "count": 1
+          "count": 2
         }
       ]
     },

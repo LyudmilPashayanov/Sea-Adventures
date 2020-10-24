@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HpSlider: {fileID: 2811980065086609467}
+  followCamera: 1
 --- !u!1 &3598042523982426954
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,7 +491,7 @@ GameObject:
   - component: {fileID: 1511708866595817510}
   - component: {fileID: 7376292560346732910}
   m_Layer: 0
-  m_Name: enemy 1
+  m_Name: normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,6 +588,7 @@ MonoBehaviour:
   m_PathfindingScript: {fileID: 3316836346193911253}
   m_EnemyAttack: {fileID: 5264033332787281710}
   m_EnemyEyes: {fileID: 4576387123893567840}
+  m_ShipHealth: {fileID: 0}
   m_HealthBarController: {fileID: 8554285569604909255}
 --- !u!114 &5264033332787281710
 MonoBehaviour:

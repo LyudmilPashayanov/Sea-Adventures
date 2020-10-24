@@ -10,24 +10,29 @@ public enum StartingPoint
 [Serializable]
 public class LevelManager : MonoBehaviour
 {
-
+    public int id;
     public List<Wave> waves = new List<Wave>();
-
-   
+    public event Action OnLevelPassed;
     private List<EnemyAI> m_CurrentEnemies = new List<EnemyAI>();  // have a base class "enemyType"
     // have my (normal enemy, charger enemy, etc.) derive from enemyType 
     private int m_CurrentWave = 0;
 
+
+
     public void StartLevel()
+    {
+        UIController.Instance.m_InGameUIController.ShowWaveInfo(m_CurrentWave + 1, StartWave);
+    }
+
+    public void StartWave()
     {
         foreach (EnemyAI item in waves[m_CurrentWave].enemies)
         {
-          EnemyAI newEnemy = Instantiate(/* enemyType, */ item, GetRandomStartingPosition(), Quaternion.identity);
-          m_CurrentEnemies.Add(newEnemy);
-          newEnemy.m_ShipHealth.OnDie += RemoveEnemyFromList;
+            EnemyAI newEnemy = Instantiate(/* enemyType, */ item, GetRandomStartingPosition(), Quaternion.identity);
+            m_CurrentEnemies.Add(newEnemy);
+            newEnemy.m_ShipHealth.OnDie += RemoveEnemyFromList;
         }
     }
-
     public void StartNextWave()
     {
         if (m_CurrentWave+1 == waves.Count)
@@ -36,6 +41,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
         m_CurrentWave++;
+
         StartLevel();
     }
 
@@ -54,7 +60,7 @@ public class LevelManager : MonoBehaviour
 
     public void LevelPassed()
     {
-        Debug.Log("CONGRATULATIONS! !! Level passed !!");
+        OnLevelPassed.Invoke();
     }
 
     public Vector3 GetRandomStartingPosition()

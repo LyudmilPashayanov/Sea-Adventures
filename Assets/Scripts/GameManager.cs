@@ -5,10 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public MenuController m_MenuController;
+    public UIController m_MenuController;
     public PlayerController_mobileJoystick playerController;
     public LevelManager m_CurrentLoadedLevel;
 
@@ -24,18 +25,22 @@ public class GameManager : MonoBehaviour
         m_MenuController.StartLevelUI();
         playerController.enabled = true;
         m_CurrentLoadedLevel.StartLevel();
+        Debug.Log("level ID " + m_CurrentLoadedLevel.id);
     }
-
-    public void Awake()
+    
+    public void LoadLevel()
     {
+        EventSystem eventSystem = EventSystem.current;
+        string buttonNumber = eventSystem.currentSelectedGameObject.gameObject.name;
         LevelManager level = new LevelManager();
-        string json = Resources.Load<TextAsset>("GameJSONData/level_1").text;
+        string jsonName = "GameJSONData/level_" + buttonNumber;
+        string json = Resources.Load<TextAsset>(jsonName).text;
         JObject levelJsonObject = JObject.Parse(json);
         JArray waves = (JArray)levelJsonObject["waves"];
+        level.id = (int)levelJsonObject["id"];
         for (int i = 0; i < waves.Count; i++)
         {
             JArray typesInWave = (JArray)levelJsonObject["waves"][i]["types"];
-            Debug.Log("WAVE: " + i);
             Wave newWave = new Wave();
             for (int k = 0; k < typesInWave.Count; k++)
             {
@@ -52,7 +57,8 @@ public class GameManager : MonoBehaviour
             level.waves.Add(newWave);
         }
         m_CurrentLoadedLevel = level;
-
+        m_CurrentLoadedLevel.OnLevelPassed += LevelFinsihed;
+        StartLevel();
         //        oneType tempType = new oneType();
         //        tempType.type = "normal";
         //        tempType.count = 3;
@@ -87,6 +93,19 @@ public class GameManager : MonoBehaviour
         //        UnityEditor.AssetDatabase.Refresh();
         //#endif
         //    }
+    }
+
+    public void LevelFinsihed()
+    {
+        m_MenuController.SetActiveMainMenus();
+        playerController.enabled = false;
+        PlayerPrefs.SetInt("lastUnlockedLevel", m_CurrentLoadedLevel.id);
+        Debug.Log("CONGRATULATIONS! !! Level passed !!");
+    }
+
+    public void ResetGameProgress()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }
 

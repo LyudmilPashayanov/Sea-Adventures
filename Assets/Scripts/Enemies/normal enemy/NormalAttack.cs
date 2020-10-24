@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalAttack : EnemyAttack
+public class NormalAttack : BaseEnemyAttack
 {
     RaycastHit hit;
-    public float m_AttackRange = 20;
-    public float m_AttackDamage = 10;
-    public float m_AttackSpeed = 1f; // bullets per second
+    public int m_AttackRange = 20;
+    public int m_AttackDamage = 10;
+    public int m_AttackSpeed = 1; // bullets per second
 
     private float m_CurrentReload = 0;
     private bool m_ReloadReady = true;
@@ -19,6 +19,26 @@ public class NormalAttack : EnemyAttack
 
     private void Update()
     {
+        ReloadWeapon();
+    }
+
+    public override void AttackTarget(GameObject target)
+    {
+        transform.LookAt(target.transform);
+        if (m_ReloadReady)
+        {
+            Shoot(target);
+            m_ReloadReady = false;
+        }
+    }
+
+    public override void Shoot(GameObject target)
+    { 
+           target.GetComponent<ShipHealth>().TakeDamage(AttackDamage);
+    }
+
+    public void ReloadWeapon()
+    {
         if (!m_ReloadReady)
         {
             m_CurrentReload += Time.deltaTime;
@@ -27,21 +47,6 @@ public class NormalAttack : EnemyAttack
                 m_ReloadReady = true;
                 m_CurrentReload = 0;
             }
-        }
-    }
-
-    public override void AttackTarget(GameObject target)
-    {
-        transform.LookAt(target.transform);
-        Shoot(target);
-    }
-
-    public override void Shoot(GameObject target)
-    {
-        if (m_ReloadReady)
-        {
-            Debug.Log("SHOOT AT TARGET: " + target.name + " for DAMAGER: "+ AttackDamage );
-            m_ReloadReady = false;
         }
     }
 

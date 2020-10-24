@@ -8,7 +8,7 @@ public enum ViewType
     front
 }
 
-public abstract class EnemyEyes : MonoBehaviour
+public abstract class BaseEnemyEyes : MonoBehaviour
 {
     private float rangeOfView;
     private ViewType viewType;

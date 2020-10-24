@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalEnemyEyes : EnemyEyes
+public class ChargerEnemyEyes : BaseEnemyEyes
 {
     RaycastHit hit;
-    public float m_RangeOfView = 30;
+    public float m_RangeOfView = 10;
     public ViewType m_ViewType = ViewType.allAround;
 
     private void Start()
@@ -33,14 +33,7 @@ public class NormalEnemyEyes : EnemyEyes
     }
 
     public override bool TargetInView(Transform target)
-{
-    if (Physics.Linecast(transform.position, target.position, out hit))
     {
-        if (hit.transform.tag != "Wall")
-        {
-            return true;
-        }
+        return true;
     }
-    return false;
-}
 }

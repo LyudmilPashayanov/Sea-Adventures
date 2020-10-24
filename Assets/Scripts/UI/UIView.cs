@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuView : MonoBehaviour
+public class UIView : MonoBehaviour
 {
     public RectTransform m_MainMenus;
     public RectTransform m_Menu;
-    public RectTransform m_InGameUI;
+  
 
 
     public void SetActiveMainMenus(bool active)
@@ -19,9 +19,5 @@ public class MenuView : MonoBehaviour
         m_Menu.gameObject.SetActive(active);
     }
 
-    public void SetInGameUI(bool active)
-    {
-        m_InGameUI.gameObject.SetActive(active);
-    }
 }
 

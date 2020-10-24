@@ -2,7 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipHealth : MonoBehaviour
+public interface BaseHealth
+{
+    event Action<GameObject> OnDie;
+    event Action<int> TakeDamageEvent;
+    void TakeDamage(int damage);
+    void Die();
+    void ResetHealth();
+
+}
+
+public class ShipHealth : MonoBehaviour, BaseHealth
 {
     [SerializeField]
     private int m_maxHealth = 100;
@@ -15,7 +25,6 @@ public class ShipHealth : MonoBehaviour
         m_currentHealth = m_maxHealth;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         var projectile = other.GetComponent<Projectile>();
@@ -26,9 +35,9 @@ public class ShipHealth : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        TakeDamageEvent(damage);
+        TakeDamageEvent?.Invoke(damage); // delegate invokation
         m_currentHealth -= damage;
         if(m_currentHealth <= 0)
         {
@@ -36,9 +45,14 @@ public class ShipHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
-        OnDie(gameObject);
+        OnDie?.Invoke(gameObject);
         Destroy(gameObject);
+    }
+
+    public void ResetHealth()
+    {
+        m_currentHealth = m_maxHealth;
     }
 }

@@ -14,14 +14,16 @@ public class EnemyAI : MonoBehaviour
 
     private State m_CurrentState;
     public EnemyPathfinding m_PathfindingScript;
-    public EnemyAttack m_EnemyAttack;
-    public EnemyEyes m_EnemyEyes;
-    public ShipHealth m_ShipHealth;
+
+    public BaseEnemyAttack m_EnemyAttack;
+    public BaseEnemyEyes m_EnemyEyes;
+    public BaseHealth m_ShipHealth;
+
     public HealthBarController m_HealthBarController;
 
     private void Awake()
     {
-        m_ShipHealth = GetComponent<ShipHealth>();
+        m_ShipHealth = GetComponent<BaseHealth>();
         m_ShipHealth.TakeDamageEvent += m_HealthBarController.ReduceHealth;
     }
 

@@ -2,31 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuController : MonoBehaviour
+public class UIController : MonoBehaviour
 {
-    public MenuView m_view;
-    public UpgradesController m_UpgradesController;
+    static UIController instance = null;
+    public static UIController Instance { get { return instance; } }
+    public UIView m_view;
+    public LevelsListController m_LevelsListController;
     public ShopController m_ShopController;
-    
+    public InGameUIController m_InGameUIController;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void StartLevelUI()
     {
         SetOffMainMenus();
-        SetInGameUI(true);
+        m_InGameUIController.SetInGameUI(true);
     }
 
     public void SetActiveMainMenus()
     {
         m_view.SetActiveMainMenus(true);
         m_view.SetActiveMenu(true);
-        m_UpgradesController.SetUpgradesOff();
+        m_LevelsListController.SetLevelsListsOff();
         m_ShopController.SetShopOff();
+        m_InGameUIController.SetInGameUI(false);
     }
 
     public void SetOffMainMenus()
     {
         m_view.SetActiveMainMenus(false);
         m_view.SetActiveMenu(false);
-        m_UpgradesController.SetUpgradesOff();
+        m_LevelsListController.SetLevelsListsOff();
         m_ShopController.SetShopOff();
     }
 
@@ -35,8 +44,9 @@ public class MenuController : MonoBehaviour
         if (active)
         {
             m_view.SetActiveMenu(true);
-            m_UpgradesController.SetUpgradesOff();
+            m_LevelsListController.SetLevelsListsOff();
             m_ShopController.SetShopOff();
+            m_InGameUIController.SetInGameUI(false);
         }
         else
         {
@@ -44,17 +54,17 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void SetUpgradesActive(bool active)
+    public void SetLevelsListActive(bool active)
     {
         if (active)
         {
             m_view.SetActiveMenu(false);
-            m_UpgradesController.SetUpgradesActive();
+            m_LevelsListController.SetLevelsListActive();
             m_ShopController.SetShopOff();
         }
         else
         {
-            m_UpgradesController.SetUpgradesOff();
+            m_LevelsListController.SetLevelsListsOff();
             m_view.SetActiveMenu(true);
         }
     }
@@ -64,7 +74,7 @@ public class MenuController : MonoBehaviour
         if (active)
         {
             m_view.SetActiveMenu(false);
-            m_UpgradesController.SetUpgradesOff();
+            m_LevelsListController.SetLevelsListsOff();
             m_ShopController.SetShopActive();
         }
         else
@@ -72,11 +82,6 @@ public class MenuController : MonoBehaviour
             m_ShopController.SetShopOff();
             m_view.SetActiveMenu(true);
         }
-    }
-
-    public void SetInGameUI(bool active)
-    {
-        m_view.SetInGameUI(active);
     }
 
     public void QuitGame()

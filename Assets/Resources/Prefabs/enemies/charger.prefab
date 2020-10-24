@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HpSlider: {fileID: 2811980065086609467}
+  followCamera: 1
 --- !u!1 &3598042523982426954
 GameObject:
   m_ObjectHideFlags: 0
