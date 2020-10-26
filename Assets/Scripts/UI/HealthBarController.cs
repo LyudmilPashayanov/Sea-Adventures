@@ -10,4 +10,14 @@ public class HealthBarController : MonoBehaviour
     {
         m_view.ReduceHp(amount);
     }
+
+    public void ResetHealth()
+    {
+        m_view.ResetHealth();
+    }
+
+    public void SetMaxHealth(int maxHealth)
+    {
+        m_view.SetMaxHealth(maxHealth);
+    }
 }

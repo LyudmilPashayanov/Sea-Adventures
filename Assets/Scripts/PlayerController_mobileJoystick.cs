@@ -22,6 +22,8 @@ public class PlayerController_mobileJoystick : MonoBehaviour
         instance = this;
         m_PlayersHealth = GetComponent<BaseHealth>();
         m_PlayersHealth.TakeDamageEvent += UIController.Instance.m_InGameUIController.m_PlayersHealthBarController.ReduceHealth;
+        UIController.Instance.m_InGameUIController.m_PlayersHealthBarController.SetMaxHealth(m_PlayersHealth.GetMaxHealth());
+        m_PlayersHealth.OnResetHealth += UIController.Instance.m_InGameUIController.m_PlayersHealthBarController.ResetHealth;
     }
 
     void Update()

@@ -9,7 +9,8 @@ public class EnemyAI : MonoBehaviour
         FocusIsland,
         ChasePlayer,
         AttackTarget,
-        AttackIsland
+        AttackIsland,
+        Pause
     }
 
     private State m_CurrentState;
@@ -20,7 +21,7 @@ public class EnemyAI : MonoBehaviour
     public BaseHealth m_ShipHealth;
 
     public HealthBarController m_HealthBarController;
-
+    private State m_LastActiveState;
     private void Awake()
     {
         m_ShipHealth = GetComponent<BaseHealth>();
@@ -49,6 +50,10 @@ public class EnemyAI : MonoBehaviour
             case State.AttackIsland:
                 AttackIsland();
                 break;
+
+            case State.Pause:
+
+                break;
         }
     }
 
@@ -68,6 +73,18 @@ public class EnemyAI : MonoBehaviour
         {
             m_CurrentState = State.AttackIsland;
         }
+    }
+
+    public void Pause()
+    {
+        m_LastActiveState = m_CurrentState;
+        m_PathfindingScript.StopMoving();
+        m_CurrentState = State.Pause;
+    }
+
+    public void Resume()
+    {
+        m_CurrentState = m_LastActiveState;
     }
 
     public void AttackPlayer()

@@ -17,8 +17,6 @@ public class LevelManager : MonoBehaviour
     // have my (normal enemy, charger enemy, etc.) derive from enemyType 
     private int m_CurrentWave = 0;
 
-
-
     public void StartLevel()
     {
         UIController.Instance.m_InGameUIController.ShowWaveInfo(m_CurrentWave + 1, StartWave);
@@ -33,6 +31,7 @@ public class LevelManager : MonoBehaviour
             newEnemy.m_ShipHealth.OnDie += RemoveEnemyFromList;
         }
     }
+
     public void StartNextWave()
     {
         if (m_CurrentWave+1 == waves.Count)
@@ -43,6 +42,30 @@ public class LevelManager : MonoBehaviour
         m_CurrentWave++;
 
         StartLevel();
+    }
+
+    public void PauseLevel()
+    {
+        foreach (EnemyAI item in m_CurrentEnemies)
+        {
+            item.Pause();
+        }
+    }
+
+    public void ResumeLevel()
+    {
+        foreach (EnemyAI item in m_CurrentEnemies)
+        {
+            item.Resume();
+        }
+    }
+
+    public void ClearCurrentWave() // turned on after an Ad
+    {
+        while(m_CurrentEnemies.Count >= 1)
+        { 
+            m_CurrentEnemies[0].m_ShipHealth.Die();
+        }
     }
 
     public void RemoveEnemyFromList(GameObject enemy)
@@ -58,9 +81,20 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void StopLevel()
+    {
+        for (int i = 0; i < m_CurrentEnemies.Count; i++)
+        {
+            Destroy(m_CurrentEnemies[i].gameObject);
+        }
+        waves.Clear();
+        m_CurrentEnemies.Clear();
+        OnLevelPassed = null;
+    }
+
     public void LevelPassed()
     {
-        OnLevelPassed.Invoke();
+        OnLevelPassed?.Invoke();
     }
 
     public Vector3 GetRandomStartingPosition()

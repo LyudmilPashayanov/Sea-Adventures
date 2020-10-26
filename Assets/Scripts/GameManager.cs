@@ -9,10 +9,17 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+    static GameManager instance = null;
+    public static GameManager Instance { get { return instance; } }
     public UIController m_MenuController;
     public PlayerController_mobileJoystick playerController;
-    public LevelManager m_CurrentLoadedLevel;
+    private LevelManager m_CurrentLoadedLevel;
+    private bool m_AdWatchedInThisLevel = false;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         m_MenuController.SetActiveMainMenus();
@@ -21,13 +28,48 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel()
     {
-        AdsManager.Instance.ShowRewardAd();
+        m_AdWatchedInThisLevel = false;
         m_MenuController.StartLevelUI();
         playerController.enabled = true;
         m_CurrentLoadedLevel.StartLevel();
-        Debug.Log("level ID " + m_CurrentLoadedLevel.id);
+    }
+
+    public void ClearWaveAndProceed()
+    {
+        ResetHealths();
+        m_CurrentLoadedLevel.ClearCurrentWave();
     }
     
+    public void ResetHealths()
+    {
+        IslandManager.Instance.m_IslandHealth.ResetHealth();
+        PlayerController_mobileJoystick.Instance.m_PlayersHealth.ResetHealth();
+    }
+
+    public void LevelFailed()
+    {
+        if (!m_AdWatchedInThisLevel)
+        {
+            m_CurrentLoadedLevel.PauseLevel();
+            UIController.Instance.m_InGameUIController.ShowAdsTab();
+            m_AdWatchedInThisLevel = true;
+        }
+        else
+        { 
+            //stop game stuff
+            
+            //destroy all active enemies
+            m_CurrentLoadedLevel.StopLevel();
+            //reset all healths
+            ResetHealths();
+            //TO DO: remove traps
+
+            //go to main menu and be ready for the next level
+            playerController.enabled = false;
+            UIController.Instance.SetActiveMainMenus();
+        }
+    }
+
     public void LoadLevel()
     {
         EventSystem eventSystem = EventSystem.current;
@@ -40,12 +82,12 @@ public class GameManager : MonoBehaviour
         level.id = (int)levelJsonObject["id"];
         for (int i = 0; i < waves.Count; i++)
         {
-            JArray typesInWave = (JArray)levelJsonObject["waves"][i]["types"];
+            JArray typesInWave = (JArray)levelJsonObject["waves"][i]["enemies"];
             Wave newWave = new Wave();
             for (int k = 0; k < typesInWave.Count; k++)
             {
-                string type = (string)levelJsonObject["waves"][i]["types"][k]["type"];
-                int count = (int)levelJsonObject["waves"][i]["types"][k]["count"];
+                string type = (string)levelJsonObject["waves"][i]["enemies"][k]["type"];
+                int count = (int)levelJsonObject["waves"][i]["enemies"][k]["count"];
                 
                 for (int j = 0; j < count; j++)
                 {
@@ -59,47 +101,14 @@ public class GameManager : MonoBehaviour
         m_CurrentLoadedLevel = level;
         m_CurrentLoadedLevel.OnLevelPassed += LevelFinsihed;
         StartLevel();
-        //        oneType tempType = new oneType();
-        //        tempType.type = "normal";
-        //        tempType.count = 3;
-
-        //        oneType tempType2 = new oneType();
-        //        tempType2.type = "charger";
-        //        tempType2.count = 1;
-
-        //        oneWave tempWave = new oneWave();
-        //        tempWave.types.Add(tempType);
-
-        //        oneWave tempWave2 = new oneWave();
-        //        tempWave2.types.Add(tempType);
-        //        tempWave2.types.Add(tempType2);
-
-        //        oneLevel tempLevel = new oneLevel();
-        //        tempLevel.waves.Add(tempWave);
-        //        tempLevel.waves.Add(tempWave2);
-
-
-        //        string path = "Assets/Resources/GameJSONData/level1.json";
-        //        string str = JsonUtility.ToJson(tempLevel);
-        //        Debug.Log("str : "+str);
-        //        using (FileStream fs = new FileStream(path, FileMode.Create))
-        //        {
-        //            using (StreamWriter writer = new StreamWriter(fs))
-        //            {
-        //                writer.Write(str);
-        //            }
-        //        }
-        //#if UNITY_EDITOR
-        //        UnityEditor.AssetDatabase.Refresh();
-        //#endif
-        //    }
     }
 
     public void LevelFinsihed()
     {
         m_MenuController.SetActiveMainMenus();
         playerController.enabled = false;
-        PlayerPrefs.SetInt("lastUnlockedLevel", m_CurrentLoadedLevel.id);
+        if(m_CurrentLoadedLevel.id > PlayerPrefs.GetInt("lastUnlockedLevel"))
+            PlayerPrefs.SetInt("lastUnlockedLevel", m_CurrentLoadedLevel.id);
         Debug.Log("CONGRATULATIONS! !! Level passed !!");
     }
 

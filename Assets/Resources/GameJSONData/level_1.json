@@ -1,8 +1,11 @@
 {
   "id": 1,
+  "map": "defaultMap",
+  "lights": true,
+  "timeBetweenWaves":30, 
   "waves": [
     {
-      "types": [
+      "enemies": [
         {
           "type": "normal",
           "count": 1
@@ -10,14 +13,10 @@
       ]
     },
     {
-      "types": [
+      "enemies": [
         {
           "type": "normal",
           "count": 1
-        },
-        {
-          "type": "charger",
-          "count": 0
         }
       ]
     }

@@ -6,9 +6,11 @@ public interface BaseHealth
 {
     event Action<GameObject> OnDie;
     event Action<int> TakeDamageEvent;
+    event Action OnResetHealth;
     void TakeDamage(int damage);
     void Die();
     void ResetHealth();
+    int GetMaxHealth();
 
 }
 
@@ -20,6 +22,7 @@ public class ShipHealth : MonoBehaviour, BaseHealth
 
     public event Action<int> TakeDamageEvent;
     public event Action<GameObject> OnDie;
+    public event Action OnResetHealth;
     private void Awake()
     {
         m_currentHealth = m_maxHealth;
@@ -51,8 +54,14 @@ public class ShipHealth : MonoBehaviour, BaseHealth
         Destroy(gameObject);
     }
 
+    public int GetMaxHealth()
+    {
+        return m_maxHealth;
+    }
+
     public void ResetHealth()
     {
         m_currentHealth = m_maxHealth;
+        OnResetHealth?.Invoke();
     }
 }

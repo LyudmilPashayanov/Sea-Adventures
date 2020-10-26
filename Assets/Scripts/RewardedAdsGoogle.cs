@@ -9,17 +9,38 @@ public class RewardedAdsGoogle : MonoBehaviour
     private string m_AdUnit = "";
     private RewardedAd m_RewardedAd = null;
     private bool m_RewardReceived = false;
-
+    bool m_AdDone = false;
     public void Init()
     {
         CreateAndLoadAd();
     }
 
+    private void Update()
+    {
+        if (m_AdDone)
+        {
+            if (m_RewardReceived)
+            {
+                //give the rewards to the palyer   
+                UIController.Instance.m_InGameUIController.SwitchTabToAdWatched(true);
+                //GameManager.Instance.ClearWaveAndProceed(); 
+            }
+            else
+            {
+                // say that the user closed the ad too soon.
+                UIController.Instance.m_InGameUIController.SwitchTabToAdWatched(false);
+                //GameManager.Instance.LevelFailed();
+            }
+            m_RewardReceived = false;
+            m_AdDone = false;
+        }
+    }
+
     private void CreateAndLoadAd()
     {
-        // ca - app - pub - 3708989579228050 / 4090049015
-        
-        m_AdUnit = "ca - app - pub - 3940256099942544 / 5224354917";
+        // ca-app-pub-3940256099942544/5224354917   testing
+        // ca - app - pub - 3940256099942544 / 5224354917   own 
+        m_AdUnit = "ca-app-pub-3940256099942544/5224354917";
 
         m_RewardedAd = new RewardedAd(m_AdUnit);
 
@@ -53,16 +74,16 @@ public class RewardedAdsGoogle : MonoBehaviour
             Debug.Log("Try to load the Ad again.");
             CreateAndLoadAd();
         }
-        StartCoroutine(ShowAdAsync(m_RewardedAd));
+        ShowAdAsync(m_RewardedAd);
     }
 
-    private IEnumerator ShowAdAsync(RewardedAd ad)
+    private void ShowAdAsync(RewardedAd ad)
     {
-        int count = 30;
-        while (!ad.IsLoaded() && --count >= 0)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
+        //int count = 30;
+        //while (!ad.IsLoaded() && --count >= 0)
+        //{
+        //    yield return new WaitForSeconds(0.1f);
+        //}
 
         if (ad.IsLoaded())
         {
@@ -111,22 +132,13 @@ public class RewardedAdsGoogle : MonoBehaviour
 
     public void HandleUserReward(object sender, Reward args)
     {
-        //Debug.Log("HandleRewardedAdRewarded event received for " + args.Amount.ToString() + " " + args.Type + " : " + m_CurrentPlacement);
+        Debug.Log("HandleRewardedAdRewarded event received");
         m_RewardReceived = true;
-        //HandleAdClose();
+       // HandleAdClose();
     }
 
     private void HandleAdClose()
     {
-        if (m_RewardReceived)
-        {
-           //give the rewards to the palyer
-        }
-        else
-        {
-           //ad canceled
-           //don't give the rewards
-        }
-        m_RewardReceived = false;
+        m_AdDone = true;
     }
 }

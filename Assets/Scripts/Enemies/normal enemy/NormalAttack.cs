@@ -34,7 +34,7 @@ public class NormalAttack : BaseEnemyAttack
 
     public override void Shoot(GameObject target)
     { 
-           target.GetComponent<ShipHealth>().TakeDamage(AttackDamage);
+           target.GetComponent<BaseHealth>().TakeDamage(AttackDamage);
     }
 
     public void ReloadWeapon()

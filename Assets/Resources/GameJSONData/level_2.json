@@ -2,7 +2,7 @@
   "id": 2,
   "waves": [
     {
-      "types": [
+      "enemies": [
         {
           "type": "normal",
           "count": 2
@@ -10,7 +10,7 @@
       ]
     },
     {
-      "types": [
+      "enemies": [
         {
           "type": "normal",
           "count": 1

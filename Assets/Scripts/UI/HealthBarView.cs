@@ -17,4 +17,15 @@ public class HealthBarView : MonoBehaviour
     {
         m_HpSlider.value -= amount;
     }
+
+    public void ResetHealth()
+    {
+        m_HpSlider.value = m_HpSlider.maxValue;
+    }
+
+    public void SetMaxHealth(int maxHealth)
+    {
+        m_HpSlider.maxValue = maxHealth;
+        m_HpSlider.value = maxHealth;
+    }
 }
