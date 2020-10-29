@@ -107,14 +107,18 @@ public class GameManager : MonoBehaviour
     {
         m_MenuController.SetActiveMainMenus();
         playerController.enabled = false;
-        if(m_CurrentLoadedLevel.id > PlayerPrefs.GetInt("lastUnlockedLevel"))
-            PlayerPrefs.SetInt("lastUnlockedLevel", m_CurrentLoadedLevel.id);
+        if (m_CurrentLoadedLevel.id > PlayfabManager.Instance.m_lastUnlockedLevel)
+        {   //PlayerPrefs.GetInt("lastUnlockedLevel"))
+            PlayfabManager.Instance.m_lastUnlockedLevel = m_CurrentLoadedLevel.id;
+            PlayfabManager.Instance.IncreaseLevel();
+        }
         Debug.Log("CONGRATULATIONS! !! Level passed !!");
     }
 
     public void ResetGameProgress()
     {
-        PlayerPrefs.DeleteAll();
+        PlayfabManager.Instance.m_lastUnlockedLevel = 0;
+        PlayfabManager.Instance.IncreaseLevel();
     }
 }
 

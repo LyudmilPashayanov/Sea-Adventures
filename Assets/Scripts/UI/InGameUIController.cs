@@ -22,6 +22,7 @@ public class InGameUIController : MonoBehaviour
     public void ShowAdsTab()
     {
         m_view.ShowAdsTab(true);
+        PlayfabManager.Instance.RecordAdOffered();
     }
 
     public void CloseAdsTab()
@@ -32,5 +33,17 @@ public class InGameUIController : MonoBehaviour
     public void SwitchTabToAdWatched(bool watched)
     {
         m_view.AfterAdWatched(watched);
+    }
+
+    public void SetDeployTrapButton(bool active)
+    {
+        if (active)
+        {
+            m_view.SetTrapDeployButton();
+        }
+        else
+        {
+            m_view.CancelTrapDeployment();
+        }
     }
 }

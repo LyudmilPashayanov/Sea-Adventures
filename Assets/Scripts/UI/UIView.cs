@@ -6,7 +6,7 @@ public class UIView : MonoBehaviour
 {
     public RectTransform m_MainMenus;
     public RectTransform m_Menu;
-  
+    public RectTransform m_InternetErrorTab;
 
 
     public void SetActiveMainMenus(bool active)
@@ -19,5 +19,9 @@ public class UIView : MonoBehaviour
         m_Menu.gameObject.SetActive(active);
     }
 
+    public void ShowInternetError(bool active)
+    {
+        m_InternetErrorTab.gameObject.SetActive(active);
+    }
 }
 

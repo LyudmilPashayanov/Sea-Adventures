@@ -15,9 +15,9 @@ public class LevelsListView : MonoBehaviour
 
     public void SetUnlockedLevels()
     {
-        if (PlayerPrefs.HasKey("lastUnlockedLevel"))
+        if (PlayfabManager.Instance.m_lastUnlockedLevel != 0)
         {
-            int untilToUnlock = PlayerPrefs.GetInt("lastUnlockedLevel")+1;
+            int untilToUnlock = PlayfabManager.Instance.m_lastUnlockedLevel + 1;
             int counter = 0;
             foreach (Button item in m_LevelButtons)
             {

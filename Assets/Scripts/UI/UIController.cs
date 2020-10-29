@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     public static UIController Instance { get { return instance; } }
     public UIView m_view;
     public LevelsListController m_LevelsListController;
-    public ShopController m_ShopController;
+    public TutorialController m_TutorialController;
     public InGameUIController m_InGameUIController;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class UIController : MonoBehaviour
         m_view.SetActiveMainMenus(true);
         m_view.SetActiveMenu(true);
         m_LevelsListController.SetLevelsListsOff();
-        m_ShopController.SetShopOff();
+        m_TutorialController.SetTutorialOff();
         m_InGameUIController.SetInGameUI(false);
     }
 
@@ -36,7 +36,7 @@ public class UIController : MonoBehaviour
         m_view.SetActiveMainMenus(false);
         m_view.SetActiveMenu(false);
         m_LevelsListController.SetLevelsListsOff();
-        m_ShopController.SetShopOff();
+        m_TutorialController.SetTutorialOff();
     }
 
     public void SetMainMenuActive(bool active)
@@ -45,7 +45,7 @@ public class UIController : MonoBehaviour
         {
             m_view.SetActiveMenu(true);
             m_LevelsListController.SetLevelsListsOff();
-            m_ShopController.SetShopOff();
+            m_TutorialController.SetTutorialOff();
             m_InGameUIController.SetInGameUI(false);
         }
         else
@@ -60,7 +60,7 @@ public class UIController : MonoBehaviour
         {
             m_view.SetActiveMenu(false);
             m_LevelsListController.SetLevelsListActive();
-            m_ShopController.SetShopOff();
+            m_TutorialController.SetTutorialOff();
         }
         else
         {
@@ -69,19 +69,24 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void SetShopActive(bool active)
+    public void SetTutorialActive(bool active)
     {
         if (active)
         {
             m_view.SetActiveMenu(false);
             m_LevelsListController.SetLevelsListsOff();
-            m_ShopController.SetShopActive();
+            m_TutorialController.SetTutorialActive();
         }
         else
         {
-            m_ShopController.SetShopOff();
+            m_TutorialController.SetTutorialOff();
             m_view.SetActiveMenu(true);
         }
+    }
+
+    public void ShowInternetError(bool active)
+    {
+        m_view.ShowInternetError(active);
     }
 
     public void QuitGame()

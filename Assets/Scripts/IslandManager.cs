@@ -12,6 +12,10 @@ public class IslandManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    public void Start()
+    { 
         m_IslandHealth = gameObject.GetComponent<IslandHealth>();
         m_IslandHealth.TakeDamageEvent += UIController.Instance.m_InGameUIController.m_IslandsHealthBarController.ReduceHealth;
         UIController.Instance.m_InGameUIController.m_IslandsHealthBarController.SetMaxHealth(m_IslandHealth.GetMaxHealth());

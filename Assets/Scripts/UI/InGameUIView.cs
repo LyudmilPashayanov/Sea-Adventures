@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public class InGameUIView : MonoBehaviour
 {
     [SerializeField] private RectTransform m_InGameUI;
@@ -14,9 +16,37 @@ public class InGameUIView : MonoBehaviour
     [SerializeField] private RectTransform m_ButtonAdWatched;
     [SerializeField] private RectTransform m_ButtonAdNotWatched;
     [SerializeField] private TextMeshProUGUI m_AdTabDescription;
+    [SerializeField] private RectTransform m_AttackButton;
+    [SerializeField] private RectTransform m_DeployTrapButton;
+    [SerializeField] private Button m_TrapButton;
+
+    public void SetTrapDeployButton()
+    {
+        m_AttackButton.gameObject.SetActive(false);
+        m_DeployTrapButton.gameObject.SetActive(true);
+        m_TrapButton.onClick.RemoveAllListeners();
+        UnityEngine.Events.UnityAction action1 = () => { PlayerController_mobileJoystick.Instance.m_PlayersTrapDeployer.CancelTrapDeployment(); };
+        m_TrapButton.onClick.AddListener(action1);
+        m_TrapButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "X";
+    }
+
+    public void CancelTrapDeployment()
+    {
+        m_AttackButton.gameObject.SetActive(true);
+        m_DeployTrapButton.gameObject.SetActive(false);
+        m_TrapButton.onClick.RemoveAllListeners();
+        UnityEngine.Events.UnityAction action1 = () => { PlayerController_mobileJoystick.Instance.m_PlayersTrapDeployer.PreviewTrap(); };
+        m_TrapButton.onClick.AddListener(action1);
+        m_TrapButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Trap";
+    }
+
     public void SetInGameUI(bool active)
     {
         m_InGameUI.gameObject.SetActive(active);
+        if (active)
+        {
+            CancelTrapDeployment();
+        }
     }
 
     public void SetWaveNumber(int waveNumber,Action callback)

@@ -23,12 +23,14 @@ public class RewardedAdsGoogle : MonoBehaviour
             {
                 //give the rewards to the palyer   
                 UIController.Instance.m_InGameUIController.SwitchTabToAdWatched(true);
+                PlayfabManager.Instance.RecordAdWatched();
                 //GameManager.Instance.ClearWaveAndProceed(); 
             }
             else
             {
                 // say that the user closed the ad too soon.
                 UIController.Instance.m_InGameUIController.SwitchTabToAdWatched(false);
+                PlayfabManager.Instance.RecordAdPlayedButNotFinished();
                 //GameManager.Instance.LevelFailed();
             }
             m_RewardReceived = false;

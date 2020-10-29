@@ -22,6 +22,9 @@ public class EnemyAI : MonoBehaviour
 
     public HealthBarController m_HealthBarController;
     private State m_LastActiveState;
+
+    public EnemyCanvasController m_EnemyCanvas;
+
     private void Awake()
     {
         m_ShipHealth = GetComponent<BaseHealth>();
@@ -67,6 +70,7 @@ public class EnemyAI : MonoBehaviour
 
     public void ChaseIsland()
     {
+        m_EnemyCanvas.NoSign();
         Vector3 islandPos = IslandManager.Instance.transform.position;
         m_PathfindingScript.MoveTo(islandPos);
         if (Vector3.Distance(transform.position, islandPos) < m_EnemyAttack.AttackRange) // in range of island
@@ -79,6 +83,7 @@ public class EnemyAI : MonoBehaviour
     {
         m_LastActiveState = m_CurrentState;
         m_PathfindingScript.StopMoving();
+        m_EnemyCanvas.NoSign();
         m_CurrentState = State.Pause;
     }
 
@@ -90,6 +95,7 @@ public class EnemyAI : MonoBehaviour
     public void AttackPlayer()
     {
         Transform player = PlayerController_mobileJoystick.Instance.transform;
+        m_EnemyCanvas.AttackMode();
         Debug.DrawLine(transform.position, PlayerController_mobileJoystick.Instance.transform.position, Color.green);
         if (m_EnemyAttack.TargetInAttackRange(player) && m_EnemyEyes.TargetInView(player))
         {
@@ -109,11 +115,13 @@ public class EnemyAI : MonoBehaviour
     public void AttackIsland()
     {
         m_PathfindingScript.StopMoving();
+        m_EnemyCanvas.AttackMode();
         m_EnemyAttack.AttackTarget(IslandManager.Instance.gameObject);
     }
 
     public void ChasePlayer()
     {
+        m_EnemyCanvas.FollowingMode();
         Transform player = PlayerController_mobileJoystick.Instance.transform;
         if (m_EnemyAttack.TargetInAttackRange(player))
         {
