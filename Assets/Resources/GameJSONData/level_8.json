@@ -1,0 +1,64 @@
+{
+  "id": 8,
+  "map": "defaultMap",
+  "lights": true,
+  "timeBetweenWaves": 30,
+  "waves": [
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 2
+        },
+        {
+          "type": "tanker",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "tanker",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 4
+        },
+        {
+          "type": "tanker",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "tanker",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

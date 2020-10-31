@@ -14,9 +14,9 @@ public class InGameUIController : MonoBehaviour
         m_view.SetInGameUI(active);
     }
 
-    public void ShowWaveInfo(int numberOfWave, Action callback)
+    public void ShowWaveInfo(int numberOfWave,int allWaves, Action callback)
     {
-        m_view.SetWaveNumber(numberOfWave, callback);
+        m_view.SetWaveNumber(numberOfWave, allWaves,callback);
     }
     
     public void ShowAdsTab()

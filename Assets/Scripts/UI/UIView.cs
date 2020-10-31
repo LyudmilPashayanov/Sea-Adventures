@@ -7,7 +7,12 @@ public class UIView : MonoBehaviour
     public RectTransform m_MainMenus;
     public RectTransform m_Menu;
     public RectTransform m_InternetErrorTab;
+    public RectTransform m_ConnectingText;
 
+    public void SetConnectingTextOff()
+    {
+        m_ConnectingText.gameObject.SetActive(false);
+    }
 
     public void SetActiveMainMenus(bool active)
     {

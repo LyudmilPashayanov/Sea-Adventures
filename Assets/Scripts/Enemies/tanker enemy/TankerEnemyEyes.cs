@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargerEnemyEyes : BaseEnemyEyes
+public class TankerEnemyEyes : BaseEnemyEyes
 {
     RaycastHit hit;
-    public float m_RangeOfView = 10;
+    public float m_RangeOfView = 20;
     public ViewType m_ViewType = ViewType.allAround;
 
     private void Start()

@@ -9,6 +9,8 @@ public class WallTrap : MonoBehaviour
     public int m_maxTraps = 3;
     public NavMeshObstacle m_navMeshComponent;
     public Material m_solidMat;
+    public Action<WallTrap> OnDestroyed;
+
     public void OnDeployed()
     {
         m_navMeshComponent.enabled = true;
@@ -16,4 +18,17 @@ public class WallTrap : MonoBehaviour
         gameObject.tag = "Wall";
     }
 
+    public void DestroyTrap()
+    {
+        OnDestroyed?.Invoke(this);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "tankerEnemy")
+        {
+            DestroyTrap();
+        }
+    }
 }

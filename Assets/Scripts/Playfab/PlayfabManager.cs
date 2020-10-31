@@ -98,9 +98,15 @@ public class PlayfabManager : MonoBehaviour
             {
                 m_lastUnlockedLevel = Convert.ToInt32(result.Data["LastUnlockedLevel"].Value);
                 Debug.Log("m_lastUnlockedLevel = " + m_lastUnlockedLevel);
+                GameManager.Instance.InitializeGame();
+            }
+            else
+            {
+                GameManager.Instance.InitializeGame();
             }
 
         }, OnPlayFabError);
+        
     }
 
     public void RecordAdWatched()

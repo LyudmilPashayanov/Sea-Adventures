@@ -49,9 +49,9 @@ public class InGameUIView : MonoBehaviour
         }
     }
 
-    public void SetWaveNumber(int waveNumber,Action callback)
+    public void SetWaveNumber(int waveNumber,int allWaves,Action callback)
     {
-        m_WaveText.text = "Wave " + waveNumber.ToString();
+        m_WaveText.text = "Wave " + waveNumber.ToString() + "<br>out of "+ allWaves.ToString();
         m_WaveTextUI.gameObject.SetActive(true);
         StartCoroutine(WaveTextSettingOff(callback));
     }

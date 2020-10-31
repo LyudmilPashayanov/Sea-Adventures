@@ -1,5 +1,5 @@
 {
-  "id": 2,
+  "id": 7,
   "map": "defaultMap",
   "lights": true,
   "timeBetweenWaves": 30,
@@ -7,8 +7,20 @@
     {
       "enemies": [
         {
+          "type": "tanker",
+          "count": 5
+        },
+        {
           "type": "normal",
-          "count": 3
+          "count": 2
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "tanker",
+          "count": 7
         }
       ]
     },
@@ -16,7 +28,7 @@
       "enemies": [
         {
           "type": "normal",
-          "count": 5
+          "count": 3
         }
       ]
     }

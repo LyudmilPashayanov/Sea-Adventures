@@ -1,0 +1,40 @@
+{
+  "id": 3,
+  "map": "defaultMap",
+  "lights": true,
+  "timeBetweenWaves": 30,
+  "waves": [
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "enemies": [
+        {
+          "type": "normal",
+          "count": 2
+        }
+      ]
+    }
+  ]
+}

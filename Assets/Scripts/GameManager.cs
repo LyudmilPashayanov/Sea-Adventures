@@ -20,14 +20,17 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
     }
-    void Start()
+
+    public void InitializeGame()
     {
+        UIController.Instance.m_view.SetConnectingTextOff();
         m_MenuController.SetActiveMainMenus();
         playerController.enabled = false;
     }
 
     public void StartLevel()
     {
+        PlayerController_mobileJoystick.Instance.m_PlayersTrapDeployer.RemoveAllTraps();
         m_AdWatchedInThisLevel = false;
         m_MenuController.StartLevelUI();
         playerController.enabled = true;
@@ -62,8 +65,8 @@ public class GameManager : MonoBehaviour
             m_CurrentLoadedLevel.StopLevel();
             //reset all healths
             ResetHealths();
-            //TO DO: remove traps
-
+            //remove traps
+            PlayerController_mobileJoystick.Instance.m_PlayersTrapDeployer.RemoveAllTraps();
             //go to main menu and be ready for the next level
             playerController.enabled = false;
             UIController.Instance.SetActiveMainMenus();

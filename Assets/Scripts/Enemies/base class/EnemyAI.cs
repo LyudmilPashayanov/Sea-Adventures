@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private State m_CurrentState;
-    public EnemyPathfinding m_PathfindingScript;
+    public BaseEnemyMovement m_PathfindingScript;
 
     public BaseEnemyAttack m_EnemyAttack;
     public BaseEnemyEyes m_EnemyEyes;
@@ -29,6 +29,7 @@ public class EnemyAI : MonoBehaviour
     {
         m_ShipHealth = GetComponent<BaseHealth>();
         m_ShipHealth.TakeDamageEvent += m_HealthBarController.ReduceHealth;
+        m_HealthBarController.SetMaxHealth(m_ShipHealth.GetMaxHealth());
     }
 
     private void Update()

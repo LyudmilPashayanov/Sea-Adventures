@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StartingPoint
-{
-    top, left, right, bottom
-}
+
 [Serializable]
 public class LevelManager : MonoBehaviour
 {
@@ -19,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartLevel()
     {
-        UIController.Instance.m_InGameUIController.ShowWaveInfo(m_CurrentWave + 1, StartWave);
+        UIController.Instance.m_InGameUIController.ShowWaveInfo(m_CurrentWave + 1, waves.Count, StartWave);
     }
 
     public void StartWave()
