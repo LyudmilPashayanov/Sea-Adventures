@@ -6322,6 +6322,7 @@ GameObject:
   - component: {fileID: 8959462974279788148}
   - component: {fileID: 6767487858203189960}
   - component: {fileID: 7105442446011927366}
+  - component: {fileID: 2397293179534727942}
   - component: {fileID: 1511708866595817510}
   m_Layer: 0
   m_Name: tanker
@@ -6362,6 +6363,7 @@ MonoBehaviour:
   m_PathfindingScript: {fileID: 7105442446011927366}
   m_EnemyAttack: {fileID: 5264033332787281710}
   m_EnemyEyes: {fileID: 6767487858203189960}
+  m_EnemyAnimation: {fileID: 2397293179534727942}
   m_HealthBarController: {fileID: 8554285569604909255}
   m_EnemyCanvas: {fileID: 4566879624048732347}
 --- !u!114 &5264033332787281710
@@ -6420,6 +6422,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementSpeed: 3
   move: 0
+--- !u!114 &2397293179534727942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9145041208908579060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c31221e094be248a08c8a1cc6f56a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1511708866595817510
 BoxCollider:
   m_ObjectHideFlags: 0

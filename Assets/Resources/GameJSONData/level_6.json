@@ -1,8 +1,8 @@
 {
   "id": 6,
-  "map": "defaultMap",
-  "lights": true,
-  "timeBetweenWaves":30,
+  "map": "big_map",
+  "lights": false,
+  "timeBetweenWaves":10,
   "waves": [
     {
       "enemies": [

@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour
     public BaseEnemyAttack m_EnemyAttack;
     public BaseEnemyEyes m_EnemyEyes;
     public BaseHealth m_ShipHealth;
-
+    public EnemyAnimations m_EnemyAnimation;
     public HealthBarController m_HealthBarController;
     private State m_LastActiveState;
 
@@ -28,7 +28,10 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         m_ShipHealth = GetComponent<BaseHealth>();
+
         m_ShipHealth.TakeDamageEvent += m_HealthBarController.ReduceHealth;
+        m_ShipHealth.TakeDamageEvent += m_EnemyAnimation.DoOnTakeDamageAnimation;
+
         m_HealthBarController.SetMaxHealth(m_ShipHealth.GetMaxHealth());
     }
 

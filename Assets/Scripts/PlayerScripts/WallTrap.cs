@@ -24,11 +24,5 @@ public class WallTrap : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "tankerEnemy")
-        {
-            DestroyTrap();
-        }
-    }
+    
 }

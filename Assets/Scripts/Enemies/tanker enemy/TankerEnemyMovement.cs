@@ -28,4 +28,13 @@ public class TankerEnemyMovement : BaseEnemyMovement
     {
         move = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Wall")
+        {
+            other.gameObject.GetComponent<WallTrap>().DestroyTrap();
+        }
+    }
+
 }
